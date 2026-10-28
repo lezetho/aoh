@@ -1,5 +1,6 @@
 # AI or Human (AoH)
-Inspired by **Human or Not**, but open-sourced. Chat anonymously for a few minutes, then guess whether you were chatting with a real person or an AI. 
+
+Inspired by **Human or Not**, but open-sourced. Chat anonymously for a few minutes, then guess whether you were chatting with a real person or an AI.
 
 \* This project is a **very** rough draft. This may or may not come out well, so I ask for your patience as I work on it. 🙏
 
