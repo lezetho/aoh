@@ -1,5 +1,6 @@
 # backend
 backend/target/
+backend/models.json
 
 # frontend
 frontend/node_modules/
