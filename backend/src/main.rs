@@ -1,7 +1,8 @@
 mod model_handler;
+mod chat;
 mod sentry;
 
-use axum::{Json, Router, http::StatusCode, routing::get};
+use axum::{Json, Router, http::StatusCode, routing::{get, post}};
 use serde::{Deserialize, Serialize};
 
 #[tokio::main(flavor = "current_thread")]
@@ -12,7 +13,8 @@ async fn main() {
 
     let app = Router::new()
         .route("/", get(root))
-        .route("/models", get(model_handler::list_models));
+        .route("/models", get(model_handler::list_models))
+        .route("/chat", post(chat::chat));
 
     let listener = tokio::net::TcpListener::bind("0.0.0.0:3000").await.unwrap();
     axum::serve(listener, app).await.unwrap();
