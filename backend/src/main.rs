@@ -1,5 +1,5 @@
-mod sentry;
 mod model_sync;
+mod sentry;
 
 use axum::{Json, Router, http::StatusCode, routing::get};
 use serde::{Deserialize, Serialize};
