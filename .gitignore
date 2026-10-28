@@ -1,0 +1,17 @@
+# backend
+backend/target/
+
+# frontend
+frontend/node_modules/
+frontend/.svelte-kit/
+frontend/build
+frontend/dist
+
+# tydwtl (things you dont want to leak)
+.env
+.env.*
+!.env.example
+
+# other
+.DS_Store
+.idea/
