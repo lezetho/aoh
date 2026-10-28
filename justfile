@@ -1,3 +1,6 @@
+set dotenv-load
+set dotenv-path := "backend/.env"
+
 dev-backend:
     cd backend && cargo watch -x run
 

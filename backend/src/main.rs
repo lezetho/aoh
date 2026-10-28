@@ -1,4 +1,5 @@
 mod sentry;
+mod model_sync;
 
 use axum::{Json, Router, http::StatusCode, routing::get};
 use serde::{Deserialize, Serialize};
@@ -7,6 +8,7 @@ use serde::{Deserialize, Serialize};
 async fn main() {
     let _sentry = sentry::init();
     tracing_subscriber::fmt::init();
+    model_sync::sync_models().await.unwrap();
 
     let app = Router::new().route("/", get(root));
 

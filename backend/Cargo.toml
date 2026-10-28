@@ -5,6 +5,7 @@ edition = "2024"
 
 [dependencies]
 axum = "0.8.9"
+reqwest = "0.13.5"
 sentry = "0.49.5"
 serde = "1.0.229"
 tokio = "1.54.1"
