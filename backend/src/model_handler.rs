@@ -1,3 +1,4 @@
+use axum::{Json, http::StatusCode};
 use reqwest::header::{AUTHORIZATION, CONTENT_TYPE};
 use serde::{Deserialize, Serialize};
 use std::error::Error;
@@ -67,4 +68,13 @@ pub async fn sync_models() -> Result<(), Box<dyn Error>> {
 
     println!("Loaded {} models: {:#?}", text_models.len(), text_models);
     Ok(())
+}
+
+pub async fn list_models() -> (StatusCode, Json<Vec<String>>) {
+    if let Ok(contents) = fs::read_to_string("models.json") {
+        if let Ok(cache) = serde_json::from_str::<Cache>(&contents) {
+            return (StatusCode::OK, Json(cache.models));
+        }
+    }
+    (StatusCode::NOT_FOUND, Json(Vec::new()))
 }
