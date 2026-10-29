@@ -1,8 +1,12 @@
-mod model_handler;
 mod chat;
+mod model_handler;
 mod sentry;
 
-use axum::{Json, Router, http::StatusCode, routing::{get, post}};
+use axum::{
+    Json, Router,
+    http::StatusCode,
+    routing::{get, post},
+};
 use serde::{Deserialize, Serialize};
 
 #[tokio::main(flavor = "current_thread")]
