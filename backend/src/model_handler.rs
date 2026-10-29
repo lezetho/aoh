@@ -25,10 +25,41 @@ struct Model {
     output_modalities: Vec<String>,
 }
 
-pub async fn sync_models() -> Result<(), Box<dyn Error>> {
-    const CACHE_FILE: &str = "models.json";
-    const TTL_SECS: u64 = 3 * 60 * 60;
+const CACHE_FILE: &str = "models.json";
+const TTL_SECS: u64 = 3 * 60 * 60;
 
+pub fn load_models() -> Vec<String> {
+    if let Ok(contents) = fs::read_to_string(CACHE_FILE) {
+        if let Ok(cache) = serde_json::from_str::<Cache>(&contents) {
+            return cache.models;
+        }
+    }
+    Vec::new()
+}
+
+pub fn remove_model(model: &str) {
+    let mut models = load_models();
+    models.retain(|m| m != model);
+
+    let now = SystemTime::now()
+        .duration_since(UNIX_EPOCH)
+        .map(|d| d.as_secs())
+        .unwrap_or(0);
+    let cache = Cache {
+        updated_at: now,
+        models,
+    };
+    let _ = fs::write(
+        CACHE_FILE,
+        serde_json::to_string_pretty(&cache).unwrap_or_default(),
+    );
+}
+
+pub fn pick_model() -> String {
+    load_models().into_iter().next().expect("no models loaded")
+}
+
+pub async fn sync_models() -> Result<(), Box<dyn Error>> {
     if let Ok(contents) = fs::read_to_string(CACHE_FILE) {
         if let Ok(cache) = serde_json::from_str::<Cache>(&contents) {
             let now = SystemTime::now().duration_since(UNIX_EPOCH)?.as_secs();
