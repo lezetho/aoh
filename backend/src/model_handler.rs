@@ -66,7 +66,7 @@ pub async fn sync_models() -> Result<(), Box<dyn Error>> {
     };
     fs::write(CACHE_FILE, serde_json::to_string_pretty(&cache)?)?;
 
-    println!("Loaded {} models: {:#?}", text_models.len(), text_models);
+    println!("Loaded {} models", text_models.len());
     Ok(())
 }
 
